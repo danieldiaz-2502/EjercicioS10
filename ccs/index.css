@@ -1,0 +1,46 @@
+#registroContainer{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    background-color: rgb(85, 99, 119);
+}
+
+#votarContainer{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    background-color: rgb(25, 34, 73);
+}
+
+#extraBotones{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    background-color: rgb(85, 99, 119);
+}
+
+
+#registroContainer *{
+    margin: 7px 5px 7px 5px;
+}
+
+#extraBotones *{
+    margin: 7px 5px 7px 5px;
+}
+
+#subtitle {
+    color: rgb(255, 255, 255);
+}
+
+#title {
+    color: rgb(255, 255, 255);
+}
