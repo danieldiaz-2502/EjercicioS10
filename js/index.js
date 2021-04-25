@@ -24,53 +24,43 @@ console.log(objetoCandidato);
 console.log(json)
 
 database.ref('users/'+objetoCandidato.nombre).set(objetoCandidato);
-database.ref('votos/'+objetoCandidato.nombre).set(objetoCandidato.nombre);
 
 }
 
-const alfa = ()=>{
-    
-    database.ref('votos').on('value', (data)=>{
+var votos = [];
+
+database.ref('users').on('value',function(data){
+    data.forEach(
+        function(a){
+            votos[a] = 0;
+            }
+    )
+});
+
+votar = () => {
+
+    let ci = candidatoId.value;
+
+    database.ref('users').on('value',function(data){
         
-        var output = "";    
-        data.forEach(child => {
-            console.log(child.key);
-            console.log(child.val());
-            let numVotos = Object.entries(child.val()).length;
-            console.log(numVotos);
-            output += child.key+": "+numVotos+"\n";
-        });
-        console.log(output);
 
-    });
+        data.forEach(
+            function(a){
+                let clave = a.key;
+                let nombreCandidato = a.val().nombre;
+                let valor = a.val().id;
 
-}
-alfa();
-
-const beta = ()=>{
-
-    var output = "";
-    database.ref('cadidatos').once('value', (data)=>{
-        data.forEach(child => {
-            console.log(child.key);
-            console.log(child.val());
-            database.ref('votos/'+child.key).once('value', (votos)=>{
-                votos.forEach(voto=>{
-                    console.log(child.key+"=>"+voto.val());
-                    output += child.key+"=>"+voto.val();
-                });
-                
-            });
-
-    
-        });
-        console.log(output);
+                console.log(clave);
+                console.log(valor);
+                if(ci == valor){
+                    alert(nombreCandidato+" "+valor);
+                    
+                    votos[a] = votos[a] + 1;
+                }
+            }
+        )
     });
 }
-
-beta();
-
-
 
 const verCandidatos = () => {
 
@@ -95,10 +85,19 @@ const verCandidatos = () => {
 }
 
 verVotaciones = () => {
+    database.ref('users').on('value',function(data){
+        
+        data.forEach(
+            function(a){
+                let nombreCandidato = a.val().nombre;
+                alert(nombreCandidato + ': ' + votos[a]+' votos');
+            }
+        )
+    });
+} 
     
-}
 
 registrarBtn.addEventListener('click', registrar);
-votarBtn.addEventListener('click', alfa,beta);
+votarBtn.addEventListener('click', votar);
 verCandidatosBtn.addEventListener('click', verCandidatos);
 verVotacionesBtn.addEventListener('click', verVotaciones);
